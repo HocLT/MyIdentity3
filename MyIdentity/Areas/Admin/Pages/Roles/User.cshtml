@@ -1,0 +1,35 @@
+﻿@page
+@model UserModel
+@{
+}
+
+<h1>User List</h1>
+<partial name="_StatusMessage" model="@Model.StatusMessage" />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Roles</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Users)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.ListRoles</td>
+                <td>
+                    <form method="post" class="d-inline">
+                        <button name="Input.Id" value="@item.Id"
+                            class="btn btn-primary btn-sm"
+                            asp-page="./AddUserRole">
+                            Assign Role
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,28 @@
+﻿@page
+@model AddUserRoleModel
+@{
+}
+
+<h1>Assign Role to User</h1>
+<partial name="_StatusMessage" model="@Model.StatusMessage" />
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Choose role to assign to user <strong>@Model.Input.Name</strong></h4>
+        <form method="post">
+            <div class="form-group">
+                <label class="form-label">Role</label>
+                <select class="w-100" multiple
+                    asp-for="Input.RoleName"
+                    asp-items="@Model.Roles"
+                ></select>
+            </div>
+
+            <input type="hidden" asp-for="Input.Id"/>
+            <input type="hidden" asp-for="IsConfirm" />
+
+            <a class="btn btn-primary" asp-page="./User">Back to Users</a>
+            <button type="submit" class="btn btn-danger">Save</button>
+        </form>
+    </div>
+</div>

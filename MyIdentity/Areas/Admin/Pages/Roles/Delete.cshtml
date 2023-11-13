@@ -1,0 +1,24 @@
+﻿@page
+@model DeleteModel
+@{
+}
+
+<h1>Delete Role</h1>
+<partial name="_StatusMessage" model="@Model.StatusMessage" />
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Are you sure to delete Role <strong>@Model.Input.Name</strong></h4>
+        <form method="post">
+            <input type="hidden" asp-for="IsConfirm" />
+            <input type="hidden" asp-for="Input.Id" />
+
+            <a class="btn btn-primary" asp-page="./Index">Back To Role List</a>
+            <button type="submit"
+                    class="btn btn-danger"
+                    asp-page="Delete">
+                Delete
+            </button>
+        </form>
+    </div>
+</div>
