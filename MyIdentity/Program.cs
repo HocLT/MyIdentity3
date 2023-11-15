@@ -20,6 +20,13 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(o => 
+{
+    o.LoginPath = "/Identity/Account/Login";
+    o.LogoutPath = "/Identity/Account/Logout";
+    o.AccessDeniedPath = "/Identity/Account/AccessDenied";
+});
+
 builder.Services.Configure<IdentityOptions>(o => { 
     // thiết lập password
     o.Password.RequireDigit = false;
@@ -48,6 +55,21 @@ var mailSettings = builder.Configuration.GetSection("MailSettings");
 builder.Services.Configure<MailSettings>(mailSettings);
 
 builder.Services.AddTransient<IEmailSender, SendMailService>();
+
+builder.Services.AddAuthentication().AddGoogle(o =>
+{
+    IConfigurationSection section = builder.Configuration.GetSection("Authentication:Google");
+    o.ClientId = section["ClientId"];
+    o.ClientSecret = section["ClientSecret"];
+    o.CallbackPath = "/dang-nhap-google";
+});
+
+builder.Services.AddAuthorization(o => {
+    o.AddPolicy("Admin", policy =>
+    {
+        policy.RequireRole("admin");
+    });
+});
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
