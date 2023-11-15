@@ -10,6 +10,8 @@ namespace MyIdentity.Data
         {
         }
 
+        public DbSet<Category>? Category { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
